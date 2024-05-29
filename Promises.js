@@ -28,9 +28,10 @@ console.log(user);
 //attaching callbacks to promise
 user.then(function(data){//this data is from PromiseResult;
     console.log(data)
-})
+});
 
-/**
+
+/***************
  * 1. Before promise we used to depend on callback functions which would result in 1.) Callback Hell (Pyramid of doom) | 2.) Inversion of control
 2. Inversion of control is overcome by using promise.
   2.1) A promise is an object that represents eventual completion/failure of an asynchronous operation.
@@ -42,3 +43,44 @@ user.then(function(data){//this data is from PromiseResult;
 3. To avoid callback hell (Pyramid of doom) => We use promise chaining. This way our code expands vertically instead of horizontally. Chaining is done using '.then()'
 4. A very common mistake that developers do is not returning a value during chaining of promises. Always remember to return a value. This returned value will be used by the next .then()
  */
+
+
+//Creating an promise
+
+const cart = ["shoes", "pants", "kurta"];
+///////consumer => we are creating a promise
+const promise = createOrder(cart);
+
+promise.then(function(orderId){
+    console.log(orderId);
+    // proceedToPayment(orderId);
+});
+
+
+//////producer
+function createOrder(cart){
+    //this is a promise constructor, and this takes a function which has resolve and reject
+    //and this resolve and reject are functions provided by JS.
+    const pr = new Promise(function(resolve, reject){
+        //createOrder
+        //validateCart
+        //OrderId
+        if(!validateCart(cart)){
+            const err = new Error("Cart is not valid!!");
+            reject(err);//we can reject- order if cart is not valid
+        }
+
+        //logic for create order
+        const orderId = "123456";// here we may call or database for the ID;
+        if(orderId){
+            //whatever we resolve and data we pass in it, will be attached to the callback function of promise line:54;
+            resolve(orderId);
+        }
+    });
+
+    return pr;
+};
+
+function validateCart(){
+    return true;
+}

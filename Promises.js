@@ -1,7 +1,7 @@
 //promise is an object representing the eventual completion or failure of an async operation.
 
 /*****They are just like placeholders to store a future value that will be returned after some time. They contain two properties: PromiseState and PromiseResult. 
- => Whatever the data that fetch method will return it will be stored in PromiseResult.
+ => Whatever the data that fetch method will return, it will be stored in PromiseResult.
  PromiseState tells you in what state the promise is like "pending, fulfilled and rejected".
 */
 
@@ -18,7 +18,7 @@ createOrder(cart, function(orderId){
     promise.then(function(orderId){
         proceedToPayment(orderId)
     });
-//once we have the order details the callback function attached to the promise will be automatically executed.
+//once we have the order details, the callback function attached to the promise will be automatically executed.
 */
 
 //Fetch() - [to connect with other servers] With the fetch function in JavaScript, we can make simple API calls
@@ -46,7 +46,6 @@ user.then(function(data){//this data is from PromiseResult;
 
 
 //Creating an promise
-
 const cart = ["shoes", "pants", "kurta"];
 ///////consumer => we are creating a promise
 const promise = createOrder(cart);
@@ -54,7 +53,10 @@ const promise = createOrder(cart);
 promise.then(function(orderId){
     console.log(orderId);
     // proceedToPayment(orderId);
-});
+})
+.catch(function(err){//giving false in validate cart
+    console.log(err.message);
+})
 
 
 //////producer
@@ -82,5 +84,5 @@ function createOrder(cart){
 };
 
 function validateCart(){
-    return true;
+    return false;
 }
